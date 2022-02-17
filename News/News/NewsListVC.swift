@@ -115,7 +115,8 @@ extension NewsListVC: UITableViewDataSource {
         print(article)
         
 //        let countersValue = counters.integer(forKey: "counter" + String(indexPathRow))
-        let text = "test" //String(String(countersValue)) // + " | " + article.title!)
+//        let text = "test" //String(String(countersValue)) // + " | " + article.title!)
+        let text = String(article.title!)
         
         return text
     }
@@ -142,7 +143,7 @@ extension NewsListVC: UITableViewDelegate {
 //        let countersValue = counters.integer(forKey: "counter" + String(indexPathRow))
 //        let newValue = countersValue + 1
         
-        counters.set(newValue, forKey: String("counter" + String(indexPathRow)))
+//        counters.set(newValue, forKey: String("counter" + String(indexPathRow)))
         
         tableView.reloadData()
     }
@@ -176,9 +177,9 @@ extension NewsListVC {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 //        print(searchBar.text)
         searchBar.resignFirstResponder()
-        let anonymousFunction = { (fetchedNewsList: Article) in
+        let anonymousFunction = { (fetchedNewsList: [Article]) in
             DispatchQueue.main.async {
-                news = fetchedNewsList
+                self.news = fetchedNewsList
                 self.tableView.reloadData()
             }
         }
@@ -193,7 +194,7 @@ extension NewsListVC {
 //MARK: - refresh
 extension NewsListVC {
     func fetchDataFromAPI() {
-        let anonymousFunction = { (fetchedNewsList: Article) in
+        let anonymousFunction = { (fetchedNewsList: [Article]) in
             DispatchQueue.main.async {
                 self.news = fetchedNewsList
                 self.tableView.reloadData()
