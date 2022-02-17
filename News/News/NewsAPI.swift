@@ -26,7 +26,7 @@ final class NewsAPI {
     
     static let shared = NewsAPI()
     
-    func fetchNewsList(searchLabel: String, onCompletion: @escaping ([Article]) -> ()) {
+    func fetchNewsList(searchLabel: String, onCompletion: @escaping (Article) -> ()) {
 
         guard let url = URL(string: lableToUrl(searchLabel: searchLabel)) else {
             print("URL's with non English symbols are not working yet")
@@ -42,13 +42,18 @@ final class NewsAPI {
                 print("error")
                 return
             }
+//
+//            guard let newsList = try? JSONDecoder().decode(Article.self, from: data) else {
+//                    print("couldn't decode JSON")
+//                return
+//            }
             
-            guard let newsList = try? JSONDecoder().decode(NewsList.self, from: data) else {
+            guard let newsList = try? JSONDecoder().decode(Article.self, from: data) else {
                     print("couldn't decode JSON")
                 return
             }
-
-            onCompletion(newsList.articles)
+            
+            onCompletion(newsList)
 
         }
         
@@ -57,11 +62,11 @@ final class NewsAPI {
     
 }
 
-struct NewsList: Codable {
-//    let status: String?
-    let totalResults : Int?
-    let articles: [Article]
-}
+//struct NewsList: Codable {
+////    let status: String?
+//    let totalResults : Int?
+//    let articles: [Article]
+//}
 
 
 struct Article : Codable {

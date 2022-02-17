@@ -36,7 +36,7 @@ class NewsListVC: UIViewController, UISearchBarDelegate {
     }()
     
     var news = [Article]()
-    let counters = UserDefaults.standard
+//    let counters = UserDefaults.standard
     
     override func loadView() {
         super.loadView()
@@ -106,10 +106,16 @@ extension NewsListVC: UITableViewDataSource {
     }
     
     func createTextLabel(indexPathRow: Int) -> (String){
-        let article = news[indexPathRow]
+//        guard let article = news[indexPathRow] else {
+//            print("error on \(indexPathRow)" )
+//            return
+//        }
         
-        let countersValue = counters.integer(forKey: "counter" + String(indexPathRow))
-        let text = String(String(countersValue) + " | " + article.title!)
+        let article = news[indexPathRow]
+        print(article)
+        
+//        let countersValue = counters.integer(forKey: "counter" + String(indexPathRow))
+        let text = "test" //String(String(countersValue)) // + " | " + article.title!)
         
         return text
     }
@@ -132,8 +138,10 @@ extension NewsListVC: UITableViewDelegate {
     }
     
     private func updateCounter(indexPathRow: Int) {
-        let countersValue = counters.integer(forKey: "counter" + String(indexPathRow))
-        let newValue = countersValue + 1
+        
+//        let countersValue = counters.integer(forKey: "counter" + String(indexPathRow))
+//        let newValue = countersValue + 1
+        
         counters.set(newValue, forKey: String("counter" + String(indexPathRow)))
         
         tableView.reloadData()
@@ -168,9 +176,9 @@ extension NewsListVC {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 //        print(searchBar.text)
         searchBar.resignFirstResponder()
-        let anonymousFunction = { (fetchedNewsList: [Article]) in
+        let anonymousFunction = { (fetchedNewsList: Article) in
             DispatchQueue.main.async {
-                self.news = fetchedNewsList
+                news = fetchedNewsList
                 self.tableView.reloadData()
             }
         }
@@ -185,7 +193,7 @@ extension NewsListVC {
 //MARK: - refresh
 extension NewsListVC {
     func fetchDataFromAPI() {
-        let anonymousFunction = { (fetchedNewsList: [Article]) in
+        let anonymousFunction = { (fetchedNewsList: Article) in
             DispatchQueue.main.async {
                 self.news = fetchedNewsList
                 self.tableView.reloadData()
