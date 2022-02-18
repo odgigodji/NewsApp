@@ -47,12 +47,6 @@ final class NewsAPI {
             
             errorCheck(error: error)
            
-//
-//            guard let newsList = try? JSONDecoder().decode(Article.self, from: data) else {
-//                    print("couldn't decode JSON")
-//                return
-//            }
-            
             guard let newsList = try? JSONDecoder().decode(NewsList.self, from: data) else {
                     print("couldn't decode JSON")
                 return
@@ -86,11 +80,11 @@ struct Article : Codable {
     
 }
 
-struct Source : Codable{
-//    let id: String?
-    let name: String?
-//    let description: String?
-//    let country: String?
-//    let category: String?
-//    let url: String?
-}
+//struct Source : Codable{
+////    let id: String?
+//    let name: String?
+////    let description: String?
+////    let country: String?
+////    let category: String?
+////    let url: String?
+//}

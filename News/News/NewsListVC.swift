@@ -36,21 +36,6 @@ class NewsListVC: UIViewController, UISearchBarDelegate {
     }()
     
     var news = [Article]()
-//    let counters = UserDefaults.standard
-    
-    override func loadView() {
-        super.loadView()
-        print("hello")
-        view.backgroundColor = .blue
-        
-//        let label: UILabel = {
-//           let label = UILabel()
-//            label.translatesAutoresizingMaskIntoConstraints = false
-//            return label
-//        }()
-//        view.addSubview(label)
-        sleep(1)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,16 +91,10 @@ extension NewsListVC: UITableViewDataSource {
     }
     
     func createTextLabel(indexPathRow: Int) -> (String){
-//        guard let article = news[indexPathRow] else {
-//            print("error on \(indexPathRow)" )
-//            return
-//        }
         
         let article = news[indexPathRow]
-        print(article)
+//        print(article)
         
-//        let countersValue = counters.integer(forKey: "counter" + String(indexPathRow))
-//        let text = "test" //String(String(countersValue)) // + " | " + article.title!)
         let text = String(article.title!)
         
         return text
@@ -128,7 +107,6 @@ extension NewsListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         goToSafari(indexPathRow: indexPath.row)
-        updateCounter(indexPathRow: indexPath.row)
     }
     
     private func goToSafari(indexPathRow: Int) {
@@ -136,16 +114,6 @@ extension NewsListVC: UITableViewDelegate {
         let url = news[indexPathRow].url!
         let newsPage = SFSafariViewController(url: url)
         self.present(newsPage, animated: true)
-    }
-    
-    private func updateCounter(indexPathRow: Int) {
-        
-//        let countersValue = counters.integer(forKey: "counter" + String(indexPathRow))
-//        let newValue = countersValue + 1
-        
-//        counters.set(newValue, forKey: String("counter" + String(indexPathRow)))
-        
-        tableView.reloadData()
     }
     
     private func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
